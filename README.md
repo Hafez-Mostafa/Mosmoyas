@@ -1,0 +1,2 @@
+# Mosmoyas
+Sequelize Pro
