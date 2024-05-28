@@ -2,6 +2,7 @@ import commentModel from "../../../db/models/commentModel.js";
 import userModel from "../../../db/models/userModel.js";
 import postModel from "../../../db/models/postModel.js";
 import { where } from "sequelize";
+import { compareSync } from "bcrypt";
 
 
 //title content userId
@@ -9,34 +10,36 @@ import { where } from "sequelize";
 export const getComments = async (req, res, next) => {
     const comments = await commentModel.findAll();
     res.status(201).json({ comments });
-};
-export const createComment = async (req, res, next) => {
+};export const createComment = async (req, res, next) => {
     try {
         const { content, UserId, PostId } = req.body;
-        const user = await userModel.findByPk(UserId); // Check if the user exists
+        
+        // Check if the user exists
+        const user = await userModel.findByPk(UserId); 
         if (!user) {
             console.error("User not found.");
             return res.status(404).json({ message: "User not found" });
         }
-        const post = await postModel.findByPk(PostId); // Check if the post exists
-        if (post) {
+
+        // Check if the post exists
+        const post = await postModel.findByPk(PostId);
+        if (!post) {
             console.error("Post not found.");
             return res.status(404).json({ message: "Post not found" });
         }
+
         // Create a new comment
         const comment = await commentModel.create({
             UserId,
             PostId,
             content,
         });
-
-
         res.status(201).json({ message: "Comment created successfully", comment });
     } catch (error) {
         console.error("Error creating comment:", error);
-        next(error); // Pass the error to the next middleware
     }
 };
+
 
 export const updateComment = async (req, res, next) => {
     try {

@@ -8,28 +8,27 @@ export const getPosts = async (req, res, next) => {
     const posts = await postModel.findAll();
     res.status(201).json({ posts });
 };
-
 export const createPost = async (req, res, next) => {
     try {
-        const { title, content, UserId} = req.body;
-        const user = await userModel.findByPk(UserId); // Check if the user exists
+        const { title, content, UserId } = req.body;
+        
+        // Überprüfen, ob der Benutzer existiert
+        const user = await userModel.findByPk(UserId);
         if (!user) {
             console.error("User not found.");
             return res.status(404).json({ message: "User not found" });
         }
-        // Create a new post
-        const post = await postModel.create({  title, content, UserId } );
-        if (post[1]) {
-            console.log("post is not registered")
-            return res.status(400).json({ message: "post is not registered" });
-        } else {
-            res.status(201).json({ message: "Post created successfully", post });
-        }
+
+        // Neuen Post erstellen
+        const post = await postModel.create({ title, content, UserId });
+
+        res.status(201).json({ message: "Post created successfully", post });
     } catch (error) {
-        console.error("Error creating  post:", error);
-        next(error); // Pass the error to the next middleware
+        console.error("Error creating post:", error);
+        next(error); // Fehler an das nächste Middleware weitergeben
     }
 };
+
 export const updatePost = async (req, res, next) => {
     try {
         const { title, content } = req.body;
