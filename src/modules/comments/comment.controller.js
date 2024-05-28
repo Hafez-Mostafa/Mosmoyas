@@ -19,7 +19,7 @@ export const createComment = async (req, res, next) => {
             return res.status(404).json({ message: "User not found" });
         }
         const post = await postModel.findByPk(PostId); // Check if the post exists
-        if (!post) {
+        if (post) {
             console.error("Post not found.");
             return res.status(404).json({ message: "Post not found" });
         }
