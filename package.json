@@ -9,7 +9,9 @@
     "start": "node index.js",
     "nodemon": "nodemon index.js"
   },
-  
+  "engines": {
+    "node": "v20.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
