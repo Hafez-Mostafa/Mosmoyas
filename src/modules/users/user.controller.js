@@ -12,6 +12,7 @@ export const getUsers = async (req, res, next) => {
     const users = await userModel.findAll({
         attributes: { exclude: ['password','createdAt','updatedAt'] }
     })
+
     res.status(201).json({ users })
 }
 
@@ -21,15 +22,13 @@ export const getUsers = async (req, res, next) => {
 export const registerUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
-
-        // Check if a user with the given email already exists
         const existingUser = await userModel.findOne({ where: { email } });
 
         if (existingUser) {
             return res.status(400).json({ message: "Email already in use" });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+        const hashedPassword = await bcrypt.hash(password, 10); 
 
         // Create a new user if the email is not in use
         const registeredUser = await userModel.create({ name, email, password: hashedPassword });
@@ -37,7 +36,6 @@ export const registerUser = async (req, res, next) => {
         res.status(201).json({ message: "User created successfully", registeredUser });
     } catch (error) {
         console.error("Error registering user:", error);
-        next(error); // Pass the error to the next middleware
     }
 };
 
