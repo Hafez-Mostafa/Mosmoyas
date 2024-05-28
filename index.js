@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import routerUser from './src/modules/users/user.route.js';
 
 import connectionDB from './db/connection.js';
@@ -11,6 +12,7 @@ const port =process.env.APP_PORT || 3000;
 
 app.use(express())
 app.use(express.json());
+app.use(cors())
 connectionDB()
 app.use("/users", routerUser)
 app.use("/posts", routerPost)
