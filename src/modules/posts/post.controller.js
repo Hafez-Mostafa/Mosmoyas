@@ -11,18 +11,15 @@ export const getPosts = async (req, res, next) => {
 
 export const createPost = async (req, res, next) => {
     try {
-        const { title, content, userId } = req.body;
-        const user = await userModel.findByPk(userId); // Check if the user exists
+        const { title, content, UserId} = req.body;
+        const user = await userModel.findByPk(UserId); // Check if the user exists
         if (!user) {
             console.error("User not found.");
             return res.status(404).json({ message: "User not found" });
         }
         // Create a new post
-        const post = await postModel.findOrCreate({
-            where: { title },
-            defaults: { userId, content },
-        });
-        if (!post[1]) {
+        const post = await postModel.create({  title, content, UserId } );
+        if (post[1]) {
             console.log("post is not registered")
             return res.status(400).json({ message: "post is not registered" });
         } else {

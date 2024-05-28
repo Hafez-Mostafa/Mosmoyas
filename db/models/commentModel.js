@@ -13,11 +13,15 @@ const commentModel = sequelize.define('Comment', {
 });
 
 // Define associations
-postModel.hasMany(commentModel);
-commentModel.belongsTo(postModel, {  onUpdate: "CASCADE", onDelete: "CASCADE" });
+postModel.hasMany(commentModel, { 
+onDelete: "CASCADE",
+onUpdate: "CASCADE" });
+commentModel.belongsTo(postModel);
 
-userModel.hasMany(commentModel, );
-commentModel.belongsTo(userModel, { onDelete: "CASCADE", onUpdate: "CASCADE" });
+userModel.hasMany(commentModel, { 
+onDelete: "CASCADE",
+onUpdate: "CASCADE" } );
+commentModel.belongsTo(userModel);
 
 export default commentModel;
 

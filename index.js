@@ -7,7 +7,7 @@ import routerComments from './src/modules/comments/comment.route.js';
 
 
 const app = express();
-const port =process.env.port || 3000;
+const port =process.env.APP_PORT || 3000;
 
 app.use(express())
 app.use(express.json());

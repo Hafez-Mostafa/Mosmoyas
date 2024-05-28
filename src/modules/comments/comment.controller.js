@@ -12,23 +12,25 @@ export const getComments = async (req, res, next) => {
 };
 export const createComment = async (req, res, next) => {
     try {
-        const { content, userId, postId } = req.body;
-        const user = await userModel.findByPk(userId); // Check if the user exists
+        const { content, UserId, PostId } = req.body;
+        const user = await userModel.findByPk(UserId); // Check if the user exists
         if (!user) {
             console.error("User not found.");
             return res.status(404).json({ message: "User not found" });
         }
-        const post = await postModel.findByPk(postId); // Check if the post exists
+        const post = await postModel.findByPk(PostId); // Check if the post exists
         if (!post) {
             console.error("Post not found.");
             return res.status(404).json({ message: "Post not found" });
         }
         // Create a new comment
         const comment = await commentModel.create({
-            userId,
-            postId,
+            UserId,
+            PostId,
             content,
         });
+
+
         res.status(201).json({ message: "Comment created successfully", comment });
     } catch (error) {
         console.error("Error creating comment:", error);
