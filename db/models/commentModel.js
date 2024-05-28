@@ -13,11 +13,11 @@ const commentModel = sequelize.define('Comment', {
 });
 
 // Define associations
-postModel.hasMany(commentModel, { foreignKey: 'postId', as: 'comments' });
-commentModel.belongsTo(postModel, { foreignKey: 'postId', onUpdate: "CASCADE", onDelete: "CASCADE" });
+postModel.hasMany(commentModel);
+commentModel.belongsTo(postModel, {  onUpdate: "CASCADE", onDelete: "CASCADE" });
 
-userModel.hasMany(commentModel, { foreignKey: 'userId', as: 'comments' });
-commentModel.belongsTo(userModel, { foreignKey: 'userId', onDelete: "CASCADE", onUpdate: "CASCADE" });
+userModel.hasMany(commentModel, );
+commentModel.belongsTo(userModel, { onDelete: "CASCADE", onUpdate: "CASCADE" });
 
 export default commentModel;
 

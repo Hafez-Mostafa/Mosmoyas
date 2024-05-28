@@ -15,7 +15,9 @@ const postModel = sequelize.define('Post', {
 });
 
 // Set up the associations
-userModel.hasMany(postModel, { foreignKey: 'userId', as: 'Author' });
-postModel.belongsTo(userModel, { foreignKey: 'userId', onDelete: "CASCADE",onUpdate: "CASCADE" });
+// userModel.hasMany(postModel, { foreignKey: 'userId', as: 'Author' });
+// postModel.belongsTo(userModel, { foreignKey: 'userId', onDelete: "CASCADE",onUpdate: "CASCADE" });
 
+userModel.hasMany(postModel);
+postModel.belongsTo(userModel, { onDelete: "CASCADE",onUpdate: "CASCADE" });
 export default postModel;
