@@ -11,8 +11,10 @@ const app = express();
 const port =process.env.APP_PORT || 3000;
 
 const corsConfig = {
-    origin: "*", Credential:true, methods:["GET","POST","PATCH","DELETE"]
+    origin: "*", Credential:true, 
+    methods:["GET","POST","PUT","PATCH","DELETE"]
 }
+app.options("",cors(corsConfig))
 app.use(express())
 app.use(express.json());
 app.use(cors(corsConfig))
