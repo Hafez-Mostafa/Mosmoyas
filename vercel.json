@@ -2,16 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "index.js",
+            "src": "./index.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "index.js"
+            "dest": "/"
         }
-    ],
-    "env": {
-        "DATABASE_URL": "mysql://ux2cjspreaqnzkuy:7q8gGOUWup0q2ue5MPjQ@bh7h9fai7cjuxe0p6by8-mysql.services.clever-cloud.com:3306/bh7h9fai7cjuxe0p6by8"    }
-}
+    ]
+   }
