@@ -18,7 +18,7 @@ app.options("",cors(corsConfig))
 app.use(express())
 app.use(express.json());
 app.use(cors(corsConfig))
-connectionDB()
+connectionDB
 app.use("/users", routerUser)
 app.use("/posts", routerPost)
 app.use("/comments", routerComments)
